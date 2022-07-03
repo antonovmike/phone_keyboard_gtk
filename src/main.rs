@@ -15,19 +15,18 @@ fn main() {
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("grid.ui");
     let builder = Builder::from_string(glade_src);
-
     let window: ApplicationWindow = builder.object("window").expect("Couldn't get window");
     window.set_application(Some(application));
 
-    // button function block
-    let grid: Grid = builder.object("grid").expect("Couldn't get grid");
+    // --> button function block
+    let grid: Grid = builder.object("grid1").expect("Couldn't get grid");
     let button6: Button = builder.object("button0").expect("Couldn't get button0");
     button6.connect_clicked(glib::clone!(@weak grid => move |button| {
         let left_attach = grid.cell_left_attach(button);
         let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
         grid.set_cell_left_attach(button, new_left_attach);
     }));
-    // button function block
+    // --> button function block
 
     window.show_all();
 }
